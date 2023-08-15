@@ -1,7 +1,9 @@
 import React, { useState } from "react";
  import Modif from "./modale/Modif";
+import Delete from "./modale/Delete";
 export default function Tableau() {
 const [showModif, setShowModif] = useState(false);
+const [showDel,setShowDel]=useState(false);
   return (
     <div className="col-7">
       <div className="card">
@@ -22,7 +24,7 @@ const [showModif, setShowModif] = useState(false);
                 <td>2</td>
                 <td>
                   <span className="text-success suppr" onClick={()=>setShowModif(true)}>Modifier</span>
-                  <span className="text-danger suppr">Supprimer</span>
+                  <span className="text-danger suppr" onClick={()=>setShowDel(true)}>Supprimer</span>
                 </td>
               </tr>
             </tbody>
@@ -75,7 +77,13 @@ const [showModif, setShowModif] = useState(false);
                   showModif?(
                       <Modif setShowModif={setShowModif} etat={!showModif}/>
                   ):null
+
               }
+        {
+                            showDel?(
+                              <Delete setShowDel={setShowDel} etat={!showDel}/>
+                          ):null
+        }
     </div>
   );
 }

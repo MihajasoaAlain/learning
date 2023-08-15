@@ -1,12 +1,12 @@
 import React, { useEffect, useRef } from 'react'
 export default function Modif({setShowModif,etat}) {
-  const modalRef = useRef(null);
+  const modalRefDel = useRef(null);
           function close(e){
             e.preventDefault();
             setShowModif(false);
           }
           function handleClickOutside(e) {
-            if (modalRef.current && !modalRef.current.contains(e.target)&& etat) {
+            if (modalRefDel.current && !modalRefDel.current.contains(e.target)&& etat) {
               console.log(etat)
                 console.log('hey you are here');
                 setShowModif(false);
@@ -25,7 +25,7 @@ export default function Modif({setShowModif,etat}) {
           }, []);
 
   return (
-    <form ref={modalRef} className="form modal" onSubmit={close}>
+    <form ref={modalRefDel} className="form modal" onSubmit={close}>
       <div className="modal-content">
         <h2>Modification</h2>
         <label htmlFor="" className="h3 mt-5">
