@@ -1,13 +1,31 @@
-import React from 'react'
-
-export default function Modif({setShowModif}) {
+import React, { useEffect, useRef } from 'react'
+export default function Modif({setShowModif,etat}) {
+  const modalRef = useRef(null);
           function close(e){
             e.preventDefault();
             setShowModif(false);
           }
+          function handleClickOutside(e) {
+            if (modalRef.current && !modalRef.current.contains(e.target)&& etat) {
+              console.log(etat)
+                console.log('hey you are here');
+                setShowModif(false);
+              console.log('ca marche')
+            }
+            else{
+              etat= true;
+            }
+          }
+          useEffect(() => {
+            console.log('heyyy');
+            document.addEventListener('click', handleClickOutside);
+            return () => {
+              document.removeEventListener('click', handleClickOutside);
+            };
+          }, []);
 
   return (
-    <form className="form modal" onSubmit={close}>
+    <form ref={modalRef} className="form modal" onSubmit={close}>
       <div className="modal-content">
         <h2>Modification</h2>
         <label htmlFor="" className="h3 mt-5">

@@ -73,7 +73,7 @@ const [showModif, setShowModif] = useState(false);
       </div>  
         {
                   showModif?(
-                      <Modif setShowModif={setShowModif}/>
+                      <Modif setShowModif={setShowModif} etat={!showModif}/>
                   ):null
               }
     </div>
