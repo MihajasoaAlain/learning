@@ -6,8 +6,9 @@ export default function Tableau() {
   const [showModif, setShowModif] = useState(false);
   const [showDel, setShowDel] = useState(false);
   const [data, setData] = useState([
-    { numMateriel:0, designation: "", etat: "", quantite: "" },
+    { numMateriel: 0, designation: "", etat: "", quantite: 0 },
   ]);
+  let somme = { total: 0, bon: 0, mauvais: 0, abime: 0 };
   useEffect(() => {
     axios
       .get("http://simplecrud/stock.php")
@@ -30,7 +31,19 @@ export default function Tableau() {
             </thead>
             <tbody>
               {data.map((value, index) => {
-                console.log(value.designation);
+                somme.total += parseInt(value.quantite);
+                switch (value.etat) {
+                  case "Bon":
+                    somme.bon += parseInt(value.quantite);
+                    break;
+                  case "Mauvais":
+                    somme.mauvais += parseInt(value.quantite);
+                    break;
+                  case "Abime":
+                    somme.abime += parseInt(value.quantite);
+                    break;
+                }
+
                 return (
                   <tr>
                     <td>{value.numMateriel}</td>
@@ -65,7 +78,7 @@ export default function Tableau() {
               <p className="h4">Total</p>
             </div>
             <div className="card-body">
-              <p>Total:10</p>
+              <p>Total:{somme.total}</p>
             </div>
           </div>
         </div>
@@ -75,7 +88,7 @@ export default function Tableau() {
               <p className="h4">Bon</p>
             </div>
             <div className="card-body">
-              <p>Quantité:153</p>
+              <p>Quantité:{somme.bon}</p>
             </div>
           </div>
         </div>
@@ -85,7 +98,7 @@ export default function Tableau() {
               <p className="h4">Mauvais</p>
             </div>
             <div className="card-body">
-              <p>Quantité:182</p>
+              <p>Quantité:{somme.mauvais}</p>
             </div>
           </div>
         </div>
@@ -95,7 +108,7 @@ export default function Tableau() {
               <p className="h4">Abimé</p>
             </div>
             <div className="card-body">
-              <p>Quantité:48</p>
+              <p>Quantité:{somme.abime}</p>
             </div>
           </div>
         </div>
