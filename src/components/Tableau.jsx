@@ -1,9 +1,21 @@
-import React, { useState } from "react";
- import Modif from "./modale/Modif";
+import React, { useEffect, useState } from "react";
+import Modif from "./modale/Modif";
 import Delete from "./modale/Delete";
+import axios from "axios";
 export default function Tableau() {
-const [showModif, setShowModif] = useState(false);
-const [showDel,setShowDel]=useState(false);
+  const [showModif, setShowModif] = useState(false);
+  const [showDel, setShowDel] = useState(false);
+  const [data, setData] = useState([
+    { numMateriel:0, designation: "", etat: "", quantite: "" },
+  ]);
+  useEffect(() => {
+    axios
+      .get("http://simplecrud/stock.php")
+      .then((res) => setData(res.data))
+      .catch((err) => console.log(err));
+  }, []);
+
+  console.log(data);
   return (
     <div className="col-7">
       <div className="card">
@@ -17,16 +29,31 @@ const [showDel,setShowDel]=useState(false);
               <th className="table-info">Action</th>
             </thead>
             <tbody>
-              <tr>
-                <td>15</td>
-                <td>24</td>
-                <td>56 </td>
-                <td>2</td>
-                <td>
-                  <span className="text-success suppr" onClick={()=>setShowModif(true)}>Modifier</span>
-                  <span className="text-danger suppr" onClick={()=>setShowDel(true)}>Supprimer</span>
-                </td>
-              </tr>
+              {data.map((value, index) => {
+                console.log(value.designation);
+                return (
+                  <tr>
+                    <td>{value.numMateriel}</td>
+                    <td>{value.designation}</td>
+                    <td>{value.etat}</td>
+                    <td>{value.quantite}</td>
+                    <td>
+                      <span
+                        className="text-success suppr"
+                        onClick={() => setShowModif(true)}
+                      >
+                        Modifier
+                      </span>
+                      <span
+                        className="text-danger suppr"
+                        onClick={() => setShowDel(true)}
+                      >
+                        Supprimer
+                      </span>
+                    </td>
+                  </tr>
+                );
+              })}
             </tbody>
           </table>
         </div>
@@ -72,18 +99,11 @@ const [showDel,setShowDel]=useState(false);
             </div>
           </div>
         </div>
-      </div>  
-        {
-                  showModif?(
-                      <Modif setShowModif={setShowModif} etat={!showModif}/>
-                  ):null
-
-              }
-        {
-                            showDel?(
-                              <Delete setShowDel={setShowDel} etat={!showDel}/>
-                          ):null
-        }
+      </div>
+      {showModif ? (
+        <Modif setShowModif={setShowModif} etat={!showModif} />
+      ) : null}
+      {showDel ? <Delete setShowDel={setShowDel} etat={!showDel} /> : null}
     </div>
   );
 }

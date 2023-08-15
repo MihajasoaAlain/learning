@@ -25,7 +25,9 @@ export default function Modif({setShowDel,etat}) {
           }, []);
 
   return (
-    <form ref={modalRefDel} className="form modal" onSubmit={close}>
+    <form ref={modalRefDel} className="form 
+    
+    modal" onSubmit={close}>
       <div className="modal-content">
         <h2>Confirmation de suppression</h2>
         <p>Êtes-vous sûr de vouloir supprimer cet élément ?</p>
