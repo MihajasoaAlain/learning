@@ -44,14 +44,14 @@ export default function Formulaire() {
         Designation
       </label>
       <input
-        type="text"
+        type="text" value={design}
         className="form-control"
         onChange={(e) => setDesign(e.target.value)}
       />
       <label htmlFor="" className="h3 mt-2">
         Etat
       </label>
-      <select
+      <select value={etat}
         name="etat"
         id=""
         className="form-select"
@@ -65,7 +65,7 @@ export default function Formulaire() {
         Quantité
       </label>
       <input
-        type="number"
+        type="number" value={qte}
         className="form-control"
         placeholder="choisir la quantité..."
         minLength="0"

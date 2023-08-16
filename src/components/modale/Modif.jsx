@@ -43,7 +43,7 @@ export default function Modif({ setShowModif, Etat,id }) {
       );
 
       // Traiter la réponse en cas de succès
-      console.log("Données a jour avec succès :");
+      console.log("Données ajour avec succès :");
 
       await fetchData();
       // Réinitialiser le formulaire si nécessaire
@@ -69,7 +69,7 @@ export default function Modif({ setShowModif, Etat,id }) {
   return (
     <form ref={modalRefDel} className="form modal" onSubmit={close}>
       <div className="modal-content">
-        <h2>Modification</h2>
+        <h2 className="text-center text-decoration-underline">Modification</h2>
         <label htmlFor="" className="h3 mt-5">
           Designation
         </label>

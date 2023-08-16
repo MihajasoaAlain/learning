@@ -6,8 +6,8 @@ import { useData } from "../context/DataContext";
 export default function Tableau() {
   const [showModif, setShowModif] = useState(false);
   const [showDel, setShowDel] = useState(false);
-  const {data}=useData();
-  const [id,setId]= useState(0);
+  const { data } = useData();
+  const [id, setId] = useState(0);
 
   let somme = { total: 0, bon: 0, mauvais: 0, abime: 0 };
   console.log(data);
@@ -15,7 +15,10 @@ export default function Tableau() {
     <div className="col-7">
       <div className="card">
         <div className="card-body">
-          <table className="table table-bordered table-responsive table-striped table-hover" style={{ maxHeight: "400px" }}>
+          <table
+            className="table table-bordered table-responsive table-striped table-hover"
+            style={{ maxHeight: "400px" }}
+          >
             <thead>
               <th className="table-info">N° Matériel</th>
               <th className="table-info">Designation</th>
@@ -47,17 +50,20 @@ export default function Tableau() {
                     <td>
                       <span
                         className="text-success suppr"
-                        onClick={() =>{
+                        onClick={() => {
                           setId(value.numMateriel);
-                          console.log(id)
+                          console.log(id);
                           setShowModif(true);
-                        } }
+                        }}
                       >
                         Modifier
                       </span>
                       <span
                         className="text-danger suppr"
-                        onClick={() => setShowDel(true)}
+                        onClick={() => {
+                          setId(value.numMateriel);
+                          setShowDel(true);
+                        }}
                       >
                         Supprimer
                       </span>
@@ -114,7 +120,9 @@ export default function Tableau() {
       {showModif ? (
         <Modif id={id} setShowModif={setShowModif} Etat={!showModif} />
       ) : null}
-      {showDel ? <Delete setShowDel={setShowDel} etat={!showDel} /> : null}
+      {showDel ? (
+        <Delete id={id} setShowDel={setShowDel} etat={!showDel} />
+      ) : null}
     </div>
   );
 }
