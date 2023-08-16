@@ -8,15 +8,17 @@ export function DataProvider({ children }) {
 
   useEffect(() => {
     fetchData(); // Appelez fetchData lors de l'initialisation
-  }, []);// Le tableau vide signifie que cela ne doit être exécuté qu'une seule fois lors du montage initial
+  }, []); // Le tableau vide signifie que cela ne doit être exécuté qu'une seule fois lors du montage initial
 
   const fetchData = () => {
+
     axios
       .get("http://simplecrud/stock.php")
       .then((res) => {
         setData(res.data); // Mettez à jour l'état avec les nouvelles données
       })
       .catch((err) => console.log(err));
+      console.log('a jours');
   };
 
   return (
