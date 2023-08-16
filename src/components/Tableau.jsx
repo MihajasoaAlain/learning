@@ -2,20 +2,13 @@ import React, { useEffect, useState } from "react";
 import Modif from "./modale/Modif";
 import Delete from "./modale/Delete";
 import axios from "axios";
+import { useData } from "../context/DataContext";
 export default function Tableau() {
   const [showModif, setShowModif] = useState(false);
   const [showDel, setShowDel] = useState(false);
-  const [data, setData] = useState([
-    { numMateriel: 0, designation: "", etat: "", quantite: 0 },
-  ]);
-  let somme = { total: 0, bon: 0, mauvais: 0, abime: 0 };
-  useEffect(() => {
-    axios
-      .get("http://simplecrud/stock.php")
-      .then((res) => setData(res.data))
-      .catch((err) => console.log(err));
-  }, []);
+  const {data}=useData();
 
+  let somme = { total: 0, bon: 0, mauvais: 0, abime: 0 };
   console.log(data);
   return (
     <div className="col-7">
@@ -45,7 +38,7 @@ export default function Tableau() {
                 }
 
                 return (
-                  <tr>
+                  <tr key={index}>
                     <td>{value.numMateriel}</td>
                     <td>{value.designation}</td>
                     <td>{value.etat}</td>
